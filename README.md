@@ -31,3 +31,15 @@ my-web-k8s/
 ## การเข้าถึงเว็บ
 - สามารถเข้าเว็บผ่าน `http://localhost:8080` (ถ้าใช้ port forwarding)
 - หรือ `http://localhost:30297` (ถ้าใช้ LoadBalancer)
+
+## สรุป
+-สร้าง Dockerfile และคัดลอก index.html เข้าไปใน container
+-สร้าง Docker image โดยใช้คำสั่ง docker build
+-รัน container โดยใช้คำสั่ง docker run และ mount directory
+-ทดสอบการเข้าถึงเว็บ ผ่าน localhost:8080
+-สร้างไฟล์ index.html 2 เวอร์ชัน (เช่น index_v1.html และ index_v2.html)
+-อัปเดต Dockerfile เพื่อใช้ไฟล์ index.html ที่แตกต่างกัน
+-สร้าง Docker image สำหรับทั้งสองเวอร์ชัน (v1 และ v2)
+-สร้าง Deployment ใน Kubernetes โดยใช้ Docker image เวอร์ชันแรก (v1)
+-ใช้คำสั่ง kubectl set image เพื่อทำ Rolling Update และอัปเดตเป็นเวอร์ชันที่สอง (v2)
+-ใช้คำสั่ง kubectl rollout undo หากต้องการทำ Rollback ไปยังเวอร์ชันก่อนหน้า
