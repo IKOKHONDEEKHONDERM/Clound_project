@@ -1,3 +1,12 @@
+my-web-k8s/
+│
+├── Dockerfile
+├── index.html
+├── deployment.yaml
+├── service.yaml
+└── README.md
+
+
 # Web Bare OS with Nginx on Kubernetes
 
 ## ขั้นตอนการทำงาน
