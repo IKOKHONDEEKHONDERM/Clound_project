@@ -1,0 +1,30 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: nginx-gitsync-pod
+spec:
+  containers:
+    - name: nginx
+      image: nginx:latest
+      ports:
+        - containerPort: 80
+      volumeMounts:
+        - name: web-content
+          mountPath: /usr/share/nginx/html
+    - name: gitsync
+      image: k8s.gcr.io/git-sync/git-sync:v3.1.7
+      env:
+        - name: GIT_SYNC_REPO
+          value: "https://github.com/IKOKHONDEEKHONDERM/Clound_project.git" # URL ของ Git repository
+        - name: GIT_SYNC_BRANCH
+          value: "master" # ชื่อ branch ที่ต้องการซิงค์
+        - name: GIT_SYNC_DEST
+          value: "git-sync" # ชื่อ directory ที่จะ mount ที่จะเก็บไฟล์ Git
+        - name: GIT_SYNC_WAIT
+          value: "30" # ระยะเวลาในการตรวจสอบการเปลี่ยนแปลงจาก Git (วินาที)
+      volumeMounts:
+        - name: web-content
+          mountPath: /git-sync
+  volumes:
+    - name: web-content
+      emptyDir: {} # ใช้ emptyDir เพื่อเก็บข้อมูลระหว่างสอง container
